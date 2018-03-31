@@ -15,6 +15,7 @@ class Recipe(models.Model):
     instructions = models.TextField(null=True, blank=True, default="")
     source = models.TextField(null=True, blank=True, default="")
     rating = models.IntegerField(default=1)
+    
     def __str__(self):
         return self.name
  
