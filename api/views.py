@@ -1,9 +1,23 @@
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse, QueryDict
 from django.forms.models import model_to_dict
+from django.contrib.auth.models import User
 
 from .models import Ingredient, Recipe
 
+def create_user(request):
+    if request.method == 'POST':
+        d = QueryDict(request.POST)
+        user = User.objects.create_user(d['username'], d['email'], d['password'])
+        return HttpResponse("Created user " + user.username)
+    else:
+        return HttpResponse("Not POST REQUEST")
+
+def get_recipe_details(request, id):
+    r = Recipe.objects.get(id=int(id))
+    result = dict()
+    result['result'] = model_to_dict(r)
+    return JsonResponse(result)
 
 def _get_recipe_list(ingredients):
     result_list = []
@@ -26,7 +40,7 @@ def _get_recipe_list(ingredients):
                 not_matches.append(i.strip())
         if points > 0: 
             recipe  = dict()
-            recipe['points'] = points + 0.5*r.rating
+            recipe['points'] = points + 0.476*r.rating
             recipe['matches'] = matches
             recipe['not_matches'] = not_matches
             recipe['info'] = model_to_dict(r)
