@@ -141,17 +141,29 @@ body {
 
 	<script>
 		function httpGetAsync(theUrl){ //, callback) {
+
 			var xmlHttp = new XMLHttpRequest();
+
 			//xmlHttp.onreadystatechange = function() {
 			//	if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
 			//		callback(xmlHttp.responseText);
 			//	}
 			//}
+
 			
 			xmlHttp.open("GET", theUrl, true); // true for asynchronous
 			xmlHttp.send(null);
 			console.log("sent to: " + theUrl);
 			return xmlHttp.responseText;
+			
+			//return "{\"results\": [{\"matches\": [\"cheese\", \"cheese\"], \"info\": {\"rating\": 1, \"name\": \"Crab Quiche\", \"ingredients\": [816, 817, 818, 819, 820, 821, 822, 823], \"source\": \"GaXKykKhWWpEKV8YnIWGK1H8d3YcjrO\", \"id\": 127, \"instructions\": \"Preheat the oven to 350 degrees F (175 degrees C). Bake the pie crust for about 10 minutes, until just starting to brown. Remove from the oven, and allow to cool.\nIn a large bowl, whisk together the eggs, cream, salt, pepper, and hot sauce. Stir in shredded cheese, onion and imitation crab. Pour into the pie shell.\nBake for 25 to 30 minutes in the preheated oven, then turn off the oven, but leave the door closed. Leave quiche in the oven for an additional 20 to 30 minutes until firm. This will give it a smoother texture.\n\"}, \"not_matches\": [\"crust\", \"eggs\", \"heavy\", \"salt\", \"pepper\", \"flaked\"], \"points\": 2.476}, {\"matches\": [\"cheese\"], \"info\": {\"rating\": 1, \"name\": \"Allergy-Friendly Comfort Soup\", \"ingredients\": [692, 693, 694, 695, 696, 697, 698, 699, 700, 701, 702, 703, 704, 705, 706, 707, 708], \"source\": \"mK3x//O5z6cDy.lh8Cz6iZl2mT3MqJG\", \"id\": 111, \"instructions\": \"Heat the oil in a large skillet over medium heat. Cook and stir the cubed yams in the hot oil until fork-tender, 7 to 10 minutes. Add the cauliflower and diced jalapeno pepper to the yams; continue cooking until the cauliflower begins to soften, 10 to 15 minutes more.\nCombine the coconut milk, water, and cannellini beans in a stockpot over medium-high heat. Stir the basil, 1 tablespoon of soy sauce, mustard powder, coriander, smoked paprika, ground ginger, cardamom, turmeric, bay leaf, and cinnamon stick into the bean mixture. Season the soup with salt and black pepper. Bring the soup to a boil, add the yam mixture, reduce heat to low, and simmer until the cauliflower is tender, 30 to 45 minutes. Garnish with the parsley, drizzle with 1 teaspoon of soy sauce, and sprinkle with goat cheese to serve.\n\"}, \"not_matches\": [\"olive\", \"florets\", \"milk\", \"water\", \"basil\", \"soy\", \"dry\", \"coriander\", \"paprika\", \"ginger\", \"cardamom\", \"ground\", \"leaf\", \"cinnamon\", \"salt\", \"soy\"], \"points\": 1.476}, {\"matches\": [\"cheese\"], \"info\": {\"rating\": 1, \"name\": \"Crispy Rosemary Sea Salt Flatbread Crackers\", \"ingredients\": [709, 710, 711, 712, 713, 714, 715], \"source\": \"joTarWDGoMS8KrfO3VjPYSG4DD8babW\", \"id\": 112, \"instructions\": \"Preheat oven to 400 degrees F (200 degrees C). Line a baking sheet with a silicon mat or parchment paper.\nPlace flour, salt, sugar, and grated cheese in a mixing bowl. Stir together until well mixed. Add rosemary; drizzle with olive oil and add water. Mix with a fork until mixture comes together in a fairly sticky dough and pulls away from the sides of the bowl, 3 to 5 minutes.\nTransfer dough onto floured surface and add flour as you knead the dough. Knead until it no longer sticks to work surface, 4 or minutes. Divide dough in half.\nDust work surface with flour. Roll out dough to 1/8-inch thickness or less. Brush or mist surface of dough very lightly with water. Sprinkle with coarse sea salt. Prick the entire surface of dough with the tines of a fork to prevent crackers from puffing too much when baking.\nCut each rolled out half into about 30 pieces with a pizza wheel. You can cut them out in squares, rectangles, or triangles--your choice. Transfer onto prepared baking sheet with a bench scraper or your floured fingers (dough will be very sticky).\nBake in preheated oven until perfectly browned and crunchy, 10 to 15 minutes, depending on the thickness.\n\"}, \"not_matches\": [\"flour\", \"salt\", \"sugar\", \"olive\", \"water\", \"fresh\"], \"points\": 1.476}, {\"matches\": [\"cheese\"], \"info\": {\"rating\": 1, \"name\": \"Best Bruschetta Ever\", \"ingredients\": [779, 780, 781, 782, 783], \"source\": \"qpXv9JK7WcFdbBWe.mRJ.kfwNgr0/b2\", \"id\": 120, \"instructions\": \"In a medium bowl, mix tomatoes, dried basil, Parmesan cheese, olive oil, garlic, seasoning salt and ground black pepper. Cover and chill in the refrigerator 8 hours, or overnight, before serving.\n\"}, \"not_matches\": [\"basil\", \"olive\", \"salt\", \"pepper\"], \"points\": 1.476}]}";
+		}
+		
+		function sendUserChoiceFeedback (choiceID) {
+			//var url = "____" + choiceID + "_____"
+			//var jsonData = JSON.parse(jsonString);
+			//httpGetAsync(url);
+			console.log("liked" + choiceID);
 		}
 	</script>
 </head>
@@ -218,34 +230,52 @@ body {
 	<!-- /#wrapper -->
 
 	<!-- Bootstrap core JavaScript -->
+	<script
+  src="https://code.jquery.com/jquery-3.3.1.slim.js"
+  integrity="sha256-fNXJFIlca05BIO2Y5zh1xrShK3ME+/lYZ0j+ChxX2DA="
+  crossorigin="anonymous"></script>
 	<script src="vendor/jquery/jquery.min.js"></script>
 	<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 	<!-- Menu Toggle Script -->
 	<script>
+		$("#send-feedback").click(function(e) {
+			e.preventDefault();
+			//$("#wrapper").toggleClass("toggled");
+			console.log("feedback sent");
+		});
+		
 		$("#menu-toggle").click(function(e) {
 			e.preventDefault();
 			$("#wrapper").toggleClass("toggled");
 		});
+
 		$("#insert-ingredients").click(function(e) {
 			e.preventDefault();
 			//$("#wrapper").toggleClass("toggled");
 			console.log("clicked get recipes");
+
 			//get ingredients from text box
 			var ingredientString = document.getElementById('ingredient_box').value;
+
 			//filter out useless characters
 			ingredientString = ingredientString.replace(/[^a-zA-Z,\s]+/g, '');
+
 			//replace whitespace with commas
 			ingredientString = ingredientString.replace(/,?[\s]+/g, ',');
+
 			// Don't send http request if the text box is blank
 			if (ingredientString == "") {
 				//notify user that need ingredients
 				alert("Please enter a list of ingredients");
 				return;
 			}
+
 			console.log("Ingredients are: " + ingredientString);
+
 			// Get the URL of the HTTP GET request to send
 			var URL = "https://recipe-recommend-jaykun.c9users.io/api/recipes/?i=" + ingredientString;
+
 			// Send HTTP get request for recipes
 			var recipeSuggestions = httpGetAsync(URL);
 			
@@ -256,15 +286,20 @@ body {
 			recipeSuggestions = recipeSuggestions.replace(/[\r\n]/g, "");
 			
 			console.log ("data is: " + recipeSuggestions);
+
 			//console.log ("innerHTML is: " + recipeSuggestions.innerHTML);
+
 			// Convert to JSON
 			var recipeListJSON = JSON.parse(recipeSuggestions);
+
 			console.log ("recipeListJSON is: " + recipeListJSON);
 			
 			recipeSuggestions = recipeSuggestions.replace(/\"/g, "");
 			recipeSuggestions = recipeSuggestions.replace(/matches/g, "<br>");
-			recipeSuggestions = recipeSuggestions.replace(/name*/g, "<h1>$&</h1>");
-			recipeSuggestions = recipeSuggestions.replace(/,/g, "<br>");
+			
+			//highlight name, AND add button to choose that option
+			recipeSuggestions = recipeSuggestions.replace(/name[^,]+/g, "<h1>$&</h1>" + '<a href="#send-feedbackk" class="btn btn-secondary" id="$&">Like</a>');
+			recipeSuggestions = recipeSuggestions.replace(/name\ ?:/g, "<br>");
 			recipeSuggestions = recipeSuggestions.replace(/instructions/g, "<h3>$&</h3>");
 			//recipeSuggestions = recipeSuggestions.
 			
@@ -279,9 +314,17 @@ body {
 				//document.write(elem);
 			}
 			*/
+
+
 			//var xmlHttp = new XMLHttpRequest();
 			//xmlHttp.open("GET", URL, true);
+
 			//console.log("https://recipe-recommend-jaykun.c9users.io/api/recipes/?i=eggs,honey,flour")
+
+
+
+
+
 		});
 	</script>
 
