@@ -26,12 +26,14 @@ def _get_recipe_list(ingredients):
                 not_matches.append(i.strip())
         if points > 0: 
             recipe  = dict()
-            recipe['points'] = points
+            recipe['points'] = points + 0.5*r.rating
             recipe['matches'] = matches
             recipe['not_matches'] = not_matches
             recipe['info'] = model_to_dict(r)
             result_list.append(recipe)
-    return result_list
+    
+    newlist = sorted(result_list, key=lambda k: k['points'], reverse=True) 
+    return newlist
         
 def index(request):
     response_data = {}
@@ -46,4 +48,9 @@ def get_recipe_list(request):
     # ingredients = QueryDict(query_list)['i']
     recipe_list = _get_recipe_list(query_list['q'])
     return JsonResponse({'results': recipe_list})
-    
+
+def increment_rating(request, id):
+    recipe = Recipe.objects.get(id=int(id))
+    recipe.rating = recipe.rating + 1
+    recipe.save()
+    return HttpResponse("Success")
