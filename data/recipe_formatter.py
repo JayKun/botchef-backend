@@ -24,7 +24,7 @@ for ingredient in all_ingredients_text:
 
 def to_ingredient(text):
 	"Transforms text into an ingredient."
-	return re.split(re.compile('[,. ]+'), text)
+	return frozenset(re.split(re.compile('[,. ]+'), text))
 
 all_ingredients = [to_ingredient(text) for text in all_ingredients_text]
 
@@ -38,7 +38,7 @@ def candidates(ingredient):
 	return possible
 
 from collections import Counter
-
+#print(all_ingredients)
 c = Counter(all_ingredients)
 
 from collections import defaultdict
