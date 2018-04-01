@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<title>Bot Chef - Recipe Recommendation System</title>
+
+	<!-- Bootstrap core CSS -->
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+	<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<!-- Custom styles for this template -->
+	<style>
+		/*!
+ * Start Bootstrap - Simple Sidebar (https://startbootstrap.com/template-overviews/simple-sidebar)
+ * Copyright 2013-2017 Start Bootstrap
+ * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-simple-sidebar/blob/master/LICENSE)
+ */
+
+body {
+  overflow-x: hidden;
+}
+
+#wrapper {
+  padding-left: 0;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+
+#wrapper.toggled {
+  padding-left: 250px;
+}
+
+#sidebar-wrapper {
+  z-index: 1000;
+  position: fixed;
+  left: 250px;
+  width: 0;
+  height: 100%;
+  margin-left: -250px;
+  overflow-y: auto;
+  background: #000;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+  width: 250px;
+}
+
+#page-content-wrapper {
+  width: 100%;
+  position: absolute;
+  padding: 15px;
+}
+
+#wrapper.toggled #page-content-wrapper {
+  position: absolute;
+  margin-right: -250px;
+}
+
+
+/* Sidebar Styles */
+
+.sidebar-nav {
+  position: absolute;
+  top: 0;
+  width: 250px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sidebar-nav li {
+  text-indent: 20px;
+  line-height: 40px;
+}
+
+.sidebar-nav li a {
+  display: block;
+  text-decoration: none;
+  color: #999999;
+}
+
+.sidebar-nav li a:hover {
+  text-decoration: none;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.sidebar-nav li a:active, .sidebar-nav li a:focus {
+  text-decoration: none;
+}
+
+.sidebar-nav>.sidebar-brand {
+  height: 65px;
+  font-size: 18px;
+  line-height: 60px;
+}
+
+.sidebar-nav>.sidebar-brand a {
+  color: #999999;
+}
+
+.sidebar-nav>.sidebar-brand a:hover {
+  color: #fff;
+  background: none;
+}
+
+@media(min-width:768px) {
+  #wrapper {
+    padding-left: 0;
+  }
+  #wrapper.toggled {
+    padding-left: 250px;
+  }
+  #sidebar-wrapper {
+    width: 0;
+  }
+  #wrapper.toggled #sidebar-wrapper {
+    width: 250px;
+  }
+  #page-content-wrapper {
+    padding: 20px;
+    position: relative;
+  }
+  #wrapper.toggled #page-content-wrapper {
+    position: relative;
+    margin-right: 0;
+  }
+}
+	</style>
+
+	<script>
+		function httpGetAsync(theUrl){ //, callback) {
+			var xmlHttp = new XMLHttpRequest();
+			//xmlHttp.onreadystatechange = function() {
+			//	if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+			//		callback(xmlHttp.responseText);
+			//	}
+			//}
+			
+			xmlHttp.open("GET", theUrl, true); // true for asynchronous
+			xmlHttp.send(null);
+			console.log("sent to: " + theUrl);
+			return xmlHttp.responseText;
+		}
+	</script>
+</head>
+
+<body>
+
+	<div id="wrapper">
+
+		<!-- Sidebar -->
+		<div id="sidebar-wrapper">
+			<ul class="sidebar-nav">
+				<li class="sidebar-brand">
+					<a href="#">
+						Start Bootstrap
+					</a>
+				</li>
+				<li>
+					<a href="#">Dashboard</a>
+				</li>
+				<li>
+					<a href="#">Overview</a>
+				</li>
+				<li>
+					<a href="#">MyProfile</a>
+				</li>
+				<li>
+					<a href="#">Events</a>
+				</li>
+				<li>
+					<a href="#">About</a>
+				</li>
+				<li>
+					<a href="#">Contact</a>
+				</li>
+				<li>
+					<a href="#">Logout</a>
+				</li>
+			</ul>
+		</div>
+		<!-- /#sidebar-wrapper -->
+
+		<!-- Page Content -->
+		<div id="page-content-wrapper">
+			<div class="container-fluid">
+				<h1>Bot Chef</h1>
+				<p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens, the page content will be pushed off canvas.</p>
+				<p>Make sure to keep all page content within the <code>#page-content-wrapper</code>.</p>
+
+				<!--Insert ingredients text box-->
+				Ingredients:<textarea type="text" id="ingredient_box" class="container-fluid" rows="5" style="font-size: 18pt; height: 160px;"></textarea><br>
+				<br>
+
+				<!--Get recipes button-->
+				<a href="#insert-ingredients" class="btn btn-secondary" id="insert-ingredients">Get Recipes!</a>
+				<br><br>
+				<a href="#menu-toggle" class="btn btn-secondary" id="menu-toggle">More Options</a>
+			</div>
+			<br>
+			<p id="recipe-section"></p>
+		</div>
+		<!-- /#page-content-wrapper -->
+
+	</div>
+	<!-- /#wrapper -->
+
+	<!-- Bootstrap core JavaScript -->
+	<script src="vendor/jquery/jquery.min.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+	<!-- Menu Toggle Script -->
+	<script>
+		$("#menu-toggle").click(function(e) {
+			e.preventDefault();
+			$("#wrapper").toggleClass("toggled");
+		});
+		$("#insert-ingredients").click(function(e) {
+			e.preventDefault();
+			//$("#wrapper").toggleClass("toggled");
+			console.log("clicked get recipes");
+			//get ingredients from text box
+			var ingredientString = document.getElementById('ingredient_box').value;
+			//filter out useless characters
+			ingredientString = ingredientString.replace(/[^a-zA-Z,\s]+/g, '');
+			//replace whitespace with commas
+			ingredientString = ingredientString.replace(/,?[\s]+/g, ',');
+			// Don't send http request if the text box is blank
+			if (ingredientString == "") {
+				//notify user that need ingredients
+				alert("Please enter a list of ingredients");
+				return;
+			}
+			console.log("Ingredients are: " + ingredientString);
+			// Get the URL of the HTTP GET request to send
+			var URL = "https://recipe-recommend-jaykun.c9users.io/api/recipes/?i=" + ingredientString;
+			// Send HTTP get request for recipes
+			var recipeSuggestions = httpGetAsync(URL);
+			
+			
+			
+			//*
+			//remove \n and \r characters
+			recipeSuggestions = recipeSuggestions.replace(/[\r\n]/g, "");
+			
+			console.log ("data is: " + recipeSuggestions);
+			//console.log ("innerHTML is: " + recipeSuggestions.innerHTML);
+			// Convert to JSON
+			var recipeListJSON = JSON.parse(recipeSuggestions);
+			console.log ("recipeListJSON is: " + recipeListJSON);
+			
+			recipeSuggestions = recipeSuggestions.replace(/\"/g, "");
+			recipeSuggestions = recipeSuggestions.replace(/matches/g, "<br>");
+			recipeSuggestions = recipeSuggestions.replace(/name*/g, "<h1>$&</h1>");
+			recipeSuggestions = recipeSuggestions.replace(/,/g, "<br>");
+			recipeSuggestions = recipeSuggestions.replace(/instructions/g, "<h3>$&</h3>");
+			//recipeSuggestions = recipeSuggestions.
+			
+			document.getElementById('recipe-section').innerHTML = recipeSuggestions;
+			//console.log("suggestions are: ");
+			/*
+			for (var elem in recipeListJSON.results) {
+				console.log ("this element is" + typeof elem);
+				//console.log("object: %O", elem.name);
+				//console.log("object: " + elem.stringify());
+				console.log(elem.info.name);
+				//document.write(elem);
+			}
+			*/
+			//var xmlHttp = new XMLHttpRequest();
+			//xmlHttp.open("GET", URL, true);
+			//console.log("https://recipe-recommend-jaykun.c9users.io/api/recipes/?i=eggs,honey,flour")
+		});
+	</script>
+
+</body>
+
+</html>
