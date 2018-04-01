@@ -4,5 +4,6 @@ from . import views
 app_name = 'api'
 
 urlpatterns = [
-    url('', views.index, name='index'),
+    url(r'^$', views.index, name='index'),
+    url(r'^recipes/$', views.get_recipe_list),
 ]
